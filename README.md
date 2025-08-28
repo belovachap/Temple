@@ -5,3 +5,7 @@ Learning: https://en.wikipedia.org/wiki/Temple,_Texas
 Learning: [Advanced Godot | Importing Real World Terrain Data into Godot](https://www.youtube.com/watch?v=NSY0PyT0Z-g)
 
 Learning: https://terraining.ateliernonta.com/
+
+Learning: https://github.com/nonta1234/terraining-heightmap-generator
+
+Learning: https://www.maptiler.com
