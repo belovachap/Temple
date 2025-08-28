@@ -1,10 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://epv5pkcklsbe"]
+[gd_scene load_steps=16 format=3 uid="uid://epv5pkcklsbe"]
 
-[sub_resource type="Gradient" id="Gradient_1jtbm"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ie84u"]
+[ext_resource type="Script" uid="uid://m8wuhgoejume" path="res://temple_texas.gd" id="1_oy1eg"]
+[ext_resource type="Texture2D" uid="uid://5t07wliafklf" path="res://assets/minimap.png" id="2_yt7od"]
+[ext_resource type="Script" uid="uid://gp1vvne8khgk" path="res://mini_map.gd" id="4_uyp36"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1jtbm"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ie84u"]
+sky_material = SubResource("ProceduralSkyMaterial_1jtbm")
+
+[sub_resource type="Environment" id="Environment_yt7od"]
+background_mode = 2
+sky = SubResource("Sky_ie84u")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_oy1eg"]
 offsets = PackedFloat32Array(0.2, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ie84u"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uyp36"]
 noise_type = 2
 frequency = 0.03
 cellular_jitter = 3.0
@@ -16,12 +34,12 @@ domain_warp_fractal_type = 2
 domain_warp_fractal_lacunarity = 1.5
 domain_warp_fractal_gain = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yt7od"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_deqpo"]
 seamless = true
-color_ramp = SubResource("Gradient_1jtbm")
-noise = SubResource("FastNoiseLite_ie84u")
+color_ramp = SubResource("Gradient_oy1eg")
+noise = SubResource("FastNoiseLite_uyp36")
 
-[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_oy1eg"]
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_axfn6"]
 _shader_parameters = {
 &"bias_distance": 512.0,
 &"blend_sharpness": 0.5,
@@ -37,12 +55,12 @@ _shader_parameters = {
 &"noise1_offset": Vector2(0.5, 0.5),
 &"noise1_scale": 0.04,
 &"noise2_scale": 0.076,
-&"noise_texture": SubResource("NoiseTexture2D_yt7od"),
+&"noise_texture": SubResource("NoiseTexture2D_deqpo"),
 &"projection_threshold": 0.8
 }
 show_checkered = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uyp36"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0obv2"]
 transparency = 4
 cull_mode = 2
 vertex_color_use_as_albedo = true
@@ -52,23 +70,59 @@ distance_fade_mode = 1
 distance_fade_min_distance = 128.0
 distance_fade_max_distance = 96.0
 
-[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_deqpo"]
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_oby7w"]
 generated_type = 1
 height_offset = 0.5
-material_override = SubResource("StandardMaterial3D_uyp36")
+material_override = SubResource("StandardMaterial3D_0obv2")
 last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
 
-[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_axfn6"]
-mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_deqpo")])
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_rjeqs"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_oby7w")])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt7od"]
+atlas = ExtResource("2_yt7od")
+region = Rect2(0, 0, 400, 400)
+margin = Rect2(0, 0, 50, 50)
 
 [node name="TempleTexas" type="Node3D"]
+script = ExtResource("1_oy1eg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yt7od")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
-data_directory = "res://data"
-material = SubResource("Terrain3DMaterial_oy1eg")
-assets = SubResource("Terrain3DAssets_axfn6")
+data_directory = "res://terrain3d_data"
+material = SubResource("Terrain3DMaterial_axfn6")
+assets = SubResource("Terrain3DAssets_rjeqs")
 show_checkered = true
 top_level = true
 metadata/_edit_lock_ = true
+
+[node name="TourismDrone" parent="." instance=ExtResource("1_ie84u")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2048, 300, 2048)
+can_sprint = true
+can_freefly = true
+freefly_speed = 200.0
+
+[node name="MiniMap" type="TextureRect" parent="TourismDrone"]
+unique_name_in_owner = true
+clip_contents = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -400.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_yt7od")
+stretch_mode = 2
+script = ExtResource("4_uyp36")
