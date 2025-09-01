@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://epv5pkcklsbe"]
 
-[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ie84u"]
 [ext_resource type="Script" uid="uid://m8wuhgoejume" path="res://temple_texas.gd" id="1_oy1eg"]
+[ext_resource type="PackedScene" uid="uid://c54bav71sdlnr" path="res://tourism_drone.tscn" id="2_uyp36"]
 [ext_resource type="Texture2D" uid="uid://5t07wliafklf" path="res://assets/minimap.png" id="2_yt7od"]
 [ext_resource type="Script" uid="uid://gp1vvne8khgk" path="res://mini_map.gd" id="4_uyp36"]
 
@@ -104,12 +104,9 @@ show_checkered = true
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="TourismDrone" parent="." instance=ExtResource("1_ie84u")]
+[node name="TourismDrone" parent="." instance=ExtResource("2_uyp36")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 540, 300, 540)
-can_sprint = true
-can_freefly = true
-freefly_speed = 200.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.6223, 152.473, 49.8669)
 
 [node name="MiniMap" type="TextureRect" parent="TourismDrone"]
 unique_name_in_owner = true
@@ -119,8 +116,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -400.0
-offset_top = -400.0
+offset_left = -450.0
+offset_top = -450.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = SubResource("AtlasTexture_yt7od")

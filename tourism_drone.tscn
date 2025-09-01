@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://c54bav71sdlnr"]
+
+[ext_resource type="Script" uid="uid://d2sqbwjb1abay" path="res://tourism_drone.gd" id="1_7wfgr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tc1fg"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7wfgr"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7wfgr"]
+height = 0.5
+radius = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7wfgr"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dwwhi"]
+height = 0.5
+radius = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eys2c"]
+height = 0.5
+radius = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4kysv"]
+height = 0.5
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_jtbkx"]
+
+[node name="TourismDrone" type="RigidBody3D"]
+script = ExtResource("1_7wfgr")
+
+[node name="Body" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_tc1fg")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_7wfgr")
+skeleton = NodePath("../..")
+
+[node name="Engine1" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+shape = SubResource("CylinderShape3D_7wfgr")
+
+[node name="EngineMesh" type="MeshInstance3D" parent="Engine1"]
+transform = Transform3D(2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("CylinderMesh_7wfgr")
+
+[node name="Engine2" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -2)
+shape = SubResource("CylinderShape3D_dwwhi")
+
+[node name="EngineMesh" type="MeshInstance3D" parent="Engine2"]
+transform = Transform3D(2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("CylinderMesh_7wfgr")
+
+[node name="Engine3" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -2)
+shape = SubResource("CylinderShape3D_eys2c")
+
+[node name="EngineMesh" type="MeshInstance3D" parent="Engine3"]
+transform = Transform3D(2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("CylinderMesh_7wfgr")
+
+[node name="Engine4" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 2)
+shape = SubResource("CylinderShape3D_4kysv")
+
+[node name="EngineMesh" type="MeshInstance3D" parent="Engine4"]
+transform = Transform3D(2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("CylinderMesh_7wfgr")
+
+[node name="CameraMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27906, 0, 0)
+mesh = SubResource("SphereMesh_jtbkx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.000820323, 0, -1, 0, 1, 0, 1, 0, -0.000820323, 1.77261, 0, 0)
