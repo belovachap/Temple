@@ -106,7 +106,7 @@ metadata/_edit_lock_ = true
 
 [node name="TourismDrone" parent="." instance=ExtResource("2_uyp36")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.6223, 152.473, 49.8669)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.622, 50, 49.867)
 
 [node name="MiniMap" type="TextureRect" parent="TourismDrone"]
 unique_name_in_owner = true
