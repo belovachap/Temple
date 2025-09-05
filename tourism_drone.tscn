@@ -27,8 +27,7 @@ radius = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_jtbkx"]
 
-[node name="TourismDrone" type="RigidBody3D"]
-mass = 0.249
+[node name="TourismDrone" type="CharacterBody3D"]
 script = ExtResource("1_7wfgr")
 
 [node name="Body" type="CollisionShape3D" parent="."]
@@ -80,9 +79,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27906, 0, 0)
 mesh = SubResource("SphereMesh_jtbkx")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(-0.000820323, 0, -1, 0, 1, 0, 1, 0, -0.000820323, 1.77261, 0, 0)
-
-[node name="DebugTimer" type="Timer" parent="."]
-autostart = true
-
-[connection signal="timeout" from="DebugTimer" to="." method="_on_debug_timer_timeout"]

@@ -106,9 +106,9 @@ metadata/_edit_lock_ = true
 
 [node name="TourismDrone" parent="." instance=ExtResource("2_uyp36")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.622, 50, 49.867)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 49.622, 50, 49.867)
 
-[node name="MiniMap" type="TextureRect" parent="TourismDrone"]
+[node name="MiniMap" type="TextureRect" parent="."]
 unique_name_in_owner = true
 clip_contents = true
 anchors_preset = 3
@@ -123,3 +123,7 @@ grow_vertical = 0
 texture = SubResource("AtlasTexture_yt7od")
 stretch_mode = 2
 script = ExtResource("4_uyp36")
+
+[node name="FollowCamera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+current = true
