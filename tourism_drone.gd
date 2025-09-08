@@ -6,7 +6,13 @@ const ACCELERATION = MAX_VELOCITY # m/s^2
 const MAX_ROTATION = PI / 8 # degrees/s
 const ANGULAR_ACCELERATION = MAX_ROTATION # degrees/s^2
 
+var battery = 100.0
+var power_usage = 0.05 # percent/second
+
 func _physics_process(delta: float) -> void:
+	battery -= power_usage * delta
+	battery = clampf(battery, 0.0, 100.0)
+
 	if Input.is_action_pressed("drone_ascend"):
 		velocity.y += ACCELERATION * delta
 	elif Input.is_action_pressed("drone_descend"):

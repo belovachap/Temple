@@ -1,9 +1,12 @@
 extends Node3D
 
+const MAX_SIGNAL_DISTANCE = 500.0 # meters
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	update_minimap()
 	update_follow_camera()
+	update_drone_stats()
 
 func update_minimap() -> void:
 	var drone_pos = %TourismDrone.global_position
@@ -17,6 +20,12 @@ func update_follow_camera() -> void:
 	%FollowCamera3D.global_position.y = %TourismDrone.global_position.y + 10
 	%FollowCamera3D.global_position.z = %TourismDrone.global_position.z - boop.z
 	%FollowCamera3D.look_at(%TourismDrone.global_position)
+
+func update_drone_stats() -> void:
+	%DroneStats.set_battery(%TourismDrone.battery)
+	var signal_percentage = 100.0 * (1.0 - (%MapCenter.global_position.distance_to(%TourismDrone.global_position) / MAX_SIGNAL_DISTANCE))
+	signal_percentage = clampf(signal_percentage, 0.0, 100.0)
+	%DroneStats.set_signal(signal_percentage)
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("switch_cameras"):

@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://epv5pkcklsbe"]
+[gd_scene load_steps=18 format=3 uid="uid://epv5pkcklsbe"]
 
 [ext_resource type="Script" uid="uid://m8wuhgoejume" path="res://temple_texas.gd" id="1_oy1eg"]
 [ext_resource type="PackedScene" uid="uid://c54bav71sdlnr" path="res://tourism_drone.tscn" id="2_uyp36"]
 [ext_resource type="Texture2D" uid="uid://5t07wliafklf" path="res://assets/minimap.png" id="2_yt7od"]
 [ext_resource type="Script" uid="uid://gp1vvne8khgk" path="res://mini_map.gd" id="4_uyp36"]
+[ext_resource type="Script" uid="uid://bucytj878ym5s" path="res://drone_stats.gd" id="5_axfn6"]
+[ext_resource type="Texture2D" uid="uid://bsef4pfxfj344" path="res://assets/icon_full.png" id="5_deqpo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1jtbm"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -106,11 +108,30 @@ metadata/_edit_lock_ = true
 
 [node name="TourismDrone" parent="." instance=ExtResource("2_uyp36")]
 unique_name_in_owner = true
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 49.622, 50, 49.867)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 540.5, 50, 540.5)
 
-[node name="MiniMap" type="TextureRect" parent="."]
+[node name="FollowCamera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+current = true
+
+[node name="Locations" type="Node3D" parent="."]
+
+[node name="MapCenter" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 540.5, 45.219, 540.5)
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MiniMap" type="TextureRect" parent="HUD"]
 unique_name_in_owner = true
 clip_contents = true
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -124,6 +145,37 @@ texture = SubResource("AtlasTexture_yt7od")
 stretch_mode = 2
 script = ExtResource("4_uyp36")
 
-[node name="FollowCamera3D" type="Camera3D" parent="."]
+[node name="DroneStats" type="MarginContainer" parent="HUD"]
 unique_name_in_owner = true
-current = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -305.0
+offset_bottom = 208.0
+grow_horizontal = 0
+script = ExtResource("5_axfn6")
+
+[node name="GridContainer" type="GridContainer" parent="HUD/DroneStats"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="BatteryLabel" type="Label" parent="HUD/DroneStats/GridContainer"]
+layout_mode = 2
+text = "BATTERY"
+
+[node name="BatteryIcon" type="TextureRect" parent="HUD/DroneStats/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_deqpo")
+
+[node name="SignalLabel" type="Label" parent="HUD/DroneStats/GridContainer"]
+layout_mode = 2
+text = "SIGNAL"
+
+[node name="SignalIcon" type="TextureRect" parent="HUD/DroneStats/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_deqpo")
